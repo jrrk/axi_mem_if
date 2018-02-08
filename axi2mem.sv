@@ -268,13 +268,13 @@ module axi2mem #(
     `ifndef VERILATOR
     // assert that only full data lane transfers allowed
     assert property (
-      @(posedge clk_i) slave.aw_valid |-> (slave.aw_size == LOG_NR_BYTES)) else $fatal ("Only full data lane transfers allowed");
+      @(posedge clk_i) slave.aw_valid |-> (slave.aw_size == LOG_NR_BYTES)) else $fatal (1, "Only full data lane transfers allowed");
       assert property (
-      @(posedge clk_i) slave.ar_valid |-> (slave.ar_size == LOG_NR_BYTES)) else $fatal ("Only full data lane transfers allowed");
+      @(posedge clk_i) slave.ar_valid |-> (slave.ar_size == LOG_NR_BYTES)) else $fatal (1, "Only full data lane transfers allowed");
     assert property (
-      @(posedge clk_i) slave.aw_valid |-> (slave.ar_addr[LOG_NR_BYTES-1:0] == '0)) else $fatal ("Unaligned accesses are not allowed at the moment");
+      @(posedge clk_i) slave.aw_valid |-> (slave.ar_addr[LOG_NR_BYTES-1:0] == '0)) else $fatal (1, "Unaligned accesses are not allowed at the moment");
     assert property (
-      @(posedge clk_i) slave.ar_valid |-> (slave.aw_addr[LOG_NR_BYTES-1:0] == '0)) else $fatal ("Unaligned accesses are not allowed at the moment");
+      @(posedge clk_i) slave.ar_valid |-> (slave.aw_addr[LOG_NR_BYTES-1:0] == '0)) else $fatal (1, "Unaligned accesses are not allowed at the moment");
     `endif
     `endif
     // --------------
